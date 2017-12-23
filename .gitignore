@@ -2,3 +2,4 @@ bigdata/*
 .idea/*
 *.pyc
 .idea/vcs.xml
+data/*
