@@ -26,3 +26,5 @@ orderFuture_train.csv
 
 label 特征list
 1 用户id 性别 省份 年龄 订单数据list(order_history:订单时间，订单类型，旅游城市，国家，大陆, 评分，标签，tags, comments)... 行为数据list(action: 行为类型， 发生时间)
+
+111
