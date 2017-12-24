@@ -2,7 +2,7 @@
 #统计每个用户的订单数量
 from tools import local_file_util
 
-file =map(lambda line: line.split(','), local_file_util.readFile('bigdata/皇包车比赛/皇包车比赛数据-非压缩包/trainingset/orderHistory_train.csv')[1:])
+file =map(lambda line: line.split(','), local_file_util.readFile('bigdata/huangbaoche/huangbaoche_unzip/trainingset/orderHistory_train.csv')[1:])
 
 
 userId_orderId_list = map(lambda line:(line[0], line[1]), file)
