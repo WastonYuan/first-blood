@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*
 from tools import local_file_util
 from itertools import groupby
 
@@ -49,4 +49,26 @@ res = list(make_origin_train())
 
 local_file_util.writeFile('data/orgin_train_data.tsv', ['\t'.join(line) for line in res])
 
+
+
+origin_train_data = [l.split('\t') for l in local_file_util.readFile('data/orgin_train_data.tsv')]
+
+check = ['\t'.join([str(i) + ':' + l[i] for i in range(l.__len__())]) for l in origin_train_data]
+
+def change_sex(line):
+    if line[1] =='女':
+        line[1] = '1'
+    else:
+        line[1] = '0'
+    def changeNone2zero(word):
+        if word == '':
+            return '0'
+        else:
+            return word
+    return [changeNone2zero(ele) for ele in line]
+
+train_data =[change_sex(line) for line in [l[0:1] + l[2:3] + l[5:7] + l[10:11] + l[13:15] + l[18:19] + l[21:23] + l[26:27] + l[28:] for l in origin_train_data]]
+
+
+local_file_util.writeFile('data/train_data.tsv', ['\t'.join(l) for l in train_data])
 
