@@ -3,3 +3,4 @@ bigdata/*
 *.pyc
 .idea/vcs.xml
 data/*
+xgboost/*
