@@ -12,7 +12,7 @@ userProfile_train = [line.split(',') for line in local_file_util.readFile('bigda
 
 def make_origin_train():
     origin_train_line = []
-    userProfile_train_dict = dict([(line[0], [line[1], line[2]])for line in userProfile_train])
+    userProfile_train_dict = dict([(line[0], line[1:])for line in userProfile_train])
 
     orderHistory_comment_train_dict = dict([[user_id, sorted(list([content[1:] for content in hist_content]),key=lambda line:line[1],reverse=True)] for user_id, hist_content in groupby(orderHistory_comment_train, lambda line: line[0])])
 
@@ -43,8 +43,6 @@ def make_origin_train():
 
 
 
-
-
 res = list(make_origin_train())
 
 local_file_util.writeFile('data/orgin_train_data.tsv', ['\t'.join(line) for line in res])
@@ -55,11 +53,19 @@ origin_train_data = [l.split('\t') for l in local_file_util.readFile('data/orgin
 
 check = ['\t'.join([str(i) + ':' + l[i] for i in range(l.__len__())]) for l in origin_train_data]
 
-def change_sex(line):
+def change_word2num(line):
     if line[1] =='女':
         line[1] = '1'
     else:
         line[1] = '0'
+
+    if line[2].__contains__('后'):
+        num = int(line[2].split('后')[0])
+        if(num == 0):
+            line[2] = str(2018 - 2000 - num)
+        else:
+            line[2] = str(2018 - 1900 - num)
+
     def changeNone2zero(word):
         if word == '':
             return '0'
@@ -67,7 +73,7 @@ def change_sex(line):
             return word
     return [changeNone2zero(ele) for ele in line]
 
-train_data =[change_sex(line) for line in [l[0:1] + l[2:3] + l[5:7] + l[10:11] + l[13:15] + l[18:19] + l[21:23] + l[26:27] + l[28:] for l in origin_train_data]]
+train_data =[change_word2num(line) for line in [l[0:1] + l[2:3] + l[4:5] + l[6:8] + l[11:12] + l[14:16] + l[19:20] + l[22:24] + l[27:28] + l[29:] for l in origin_train_data]]
 
 
 local_file_util.writeFile('data/train_data.tsv', ['\t'.join(l) for l in train_data])
