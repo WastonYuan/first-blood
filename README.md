@@ -24,7 +24,7 @@ userid,orderid,rating,tags,commentsKeyWords
 
 order_history_list|12v: [前3的订单 所有订单时间的最小值/平均值/中位数/标准差/个数 精品订单的个数/概率(均值)/标准差] 洲[1,2,3,5,1]
 
-action_list|6v: 1-4有多少次 5-9有多少次 时间的平均值/中位数/标准差 操作的总个数
+action_list|6v: 1-4有多少次 5-9有多少次 时间的平均值/最大值/最小值/标准差/总个数
 
 
 
