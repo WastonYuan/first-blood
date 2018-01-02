@@ -1,7 +1,7 @@
 import xgboost as xgb
 
 bst = xgb.Booster({'nthread': 4})
-bst.load_model('xgb_model/xgb_v1.model')
+bst.load_model('xgb_model/xgb_v2.model')
 
 import numpy as np
 
