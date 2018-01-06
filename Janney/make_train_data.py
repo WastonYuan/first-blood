@@ -28,7 +28,7 @@ def make_origin_train():
         if user_id in userProfile_train_dict:
             origin_train_line = origin_train_line+ (userProfile_train_dict[user_id])
         else:
-            origin_train_line = origin_train_line + ['', '']
+            origin_train_line = origin_train_line + ['', '', '']
 
         #orderHistory
 
