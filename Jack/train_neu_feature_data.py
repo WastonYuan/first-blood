@@ -24,6 +24,7 @@ for i in [str(time_range_list.index(t)) + '\t' + datetime.datetime.fromtimestamp
 
 orderFuture = [l.split(',') for l in local_file_util.readFile('bigdata/huangbaoche/huangbaoche_unzip/trainingset/orderFuture_train.csv')[1:]]
 
+userid_label_dict = dict(orderFuture)
 target_userid = [l[0] for l in orderFuture]
 
 def get_count_feat(userid):
@@ -52,7 +53,7 @@ def get_feat(userid):
     rate_feat = [[float(t)/(sum(l)+1e-10) for t in l] for l in count_feat]
     return sum([sum(l, []) for l in zip(count_feat, rate_feat)], [])
 
-local_file_util.writeFile('data/neuro_feat.tsv', [user_id + '\t' + '\t'.join([str(feat) for feat in get_feat(user_id)]) for user_id in target_userid])
+local_file_util.writeFile('data/neuro_feat.tsv', [userid_label_dict[user_id] + '\t' + '\t'.join([str(feat) for feat in get_feat(user_id)]) for user_id in target_userid])
 
 
 
