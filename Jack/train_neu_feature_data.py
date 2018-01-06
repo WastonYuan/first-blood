@@ -56,5 +56,3 @@ def get_feat(userid):
 local_file_util.writeFile('data/neuro_feat.tsv', [userid_label_dict[user_id] + '\t' + '\t'.join([str(feat) for feat in get_feat(user_id)]) for user_id in target_userid])
 
 
-
-
