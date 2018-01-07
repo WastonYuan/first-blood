@@ -43,7 +43,7 @@ def make_origin_train():
 
         if user_id in orderHistory_comment_train_dict:
             left_num =  hist_num - orderHistory_comment_train_dict[user_id].__len__()
-            origin_train_line = origin_train_line + sum(orderHistory_comment_train_dict[user_id][:hist_num], []) #3*3(只取top3)维订单信息(订单号(未提), 时间戳, 是否精品, 城市(未提), 国家(未提), 大洲, flag(未提), comment(未提))
+            origin_train_line = origin_train_line + sum(orderHistory_comment_train_dict[user_id][:hist_num], []) #4*3(只取top3)维订单信息(订单号(未提), 时间戳, 是否精品, 城市(未提), 国家(未提), 大洲, score, flag(未提))
             time_list = np.array([int(ele[1]) for ele in orderHistory_comment_train_dict[user_id]])
             time_feat_list =[str(num) for num in [time_list.min(), time_list.std(), time_list.mean(), time_list[time_list.size/2], time_list.size]]
             buy_elit_list = np.array([int(ele[2]) for ele in orderHistory_comment_train_dict[user_id]])
