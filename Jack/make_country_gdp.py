@@ -1,5 +1,6 @@
 from tools import local_file_util
 
+
 e2gdp_list = [(l[1].strip(), l[2]) for l in [l.split('\t') for l in local_file_util.readFile('data/Jack/country_info.tsv')]]
 e2c = local_file_util.readFile('data/Jack/country_e2c.txt')
 
