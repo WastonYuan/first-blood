@@ -3,6 +3,7 @@ from tools import local_file_util
 from itertools import groupby
 import numpy as np
 
+
 orderFuture_train = [line.split(',') for line in local_file_util.readFile('bigdata/huangbaoche/huangbaoche_unzip/trainingset/orderFuture_train.csv')[1:]]
 
 action_train = [line.split(',') for line in local_file_util.readFile('bigdata/huangbaoche/huangbaoche_unzip/trainingset/action_train.csv')[1:]]
@@ -12,6 +13,8 @@ orderHistory_comment_train = [line.split(',') for line in local_file_util.readFi
 userProfile_train = [line.split(',') for line in local_file_util.readFile('bigdata/huangbaoche/huangbaoche_unzip/trainingset/userProfile_train.csv')[1:]]
 
 continent_rate_dict = {'大洋洲': 1.4 / 0.33, '欧洲': 19.1 / 7.25, '非洲': 2.2 / 8.69, '北美洲': 21.7 / 4.6, '亚洲': 25.0 / 38.7, '南美洲': 3.6 / 3.5, '南极洲':0.0}
+
+country_gdp_dict = dict([l.split('\t') for l in local_file_util.readFile('data/Jack/country_gdp.tsv')])
 
 def make_origin_train():
     origin_train_line = []
@@ -26,7 +29,7 @@ def make_origin_train():
         origin_train_line  =  [orderFuture_line[1], user_id]
         #userProfile
         if user_id in userProfile_train_dict:
-            origin_train_line = origin_train_line+ (userProfile_train_dict[user_id])
+            origin_train_line = origin_train_line+ (userProfile_train_dict[user_id]) #(3v)性别 省份 年龄
         else:
             origin_train_line = origin_train_line + ['', '', '']
 
@@ -34,12 +37,13 @@ def make_origin_train():
 
         hist_num = 3
         left_num = hist_num
-        time_feat_list = ['0']*5
-        buy_feat_list = ['0']*3
-        continent_feat_list = ['0']*4
+        time_feat_list = ['0']*5 #时间最小 标准差 均值 中位数 订单个数
+        buy_feat_list = ['0']*3 #购买精品得总数,均值(精品购买率),标准差
+        continent_feat_list = ['0']*4 #订单所在洲gdp最大,最小,均值,以及标准差
+
         if user_id in orderHistory_comment_train_dict:
             left_num =  hist_num - orderHistory_comment_train_dict[user_id].__len__()
-            origin_train_line = origin_train_line + sum(orderHistory_comment_train_dict[user_id][:hist_num], []) #get top hist_num order
+            origin_train_line = origin_train_line + sum(orderHistory_comment_train_dict[user_id][:hist_num], []) #3*3(只取top3)维订单信息(订单号(未提), 时间戳, 是否精品, 城市(未提), 国家(未提), 大洲, flag(未提), comment(未提))
             time_list = np.array([int(ele[1]) for ele in orderHistory_comment_train_dict[user_id]])
             time_feat_list =[str(num) for num in [time_list.min(), time_list.std(), time_list.mean(), time_list[time_list.size/2], time_list.size]]
             buy_elit_list = np.array([int(ele[2]) for ele in orderHistory_comment_train_dict[user_id]])
@@ -55,9 +59,9 @@ def make_origin_train():
 
 
         #action_train
-        action_count_feat = ['0']*9
-        action_type_count_feat = ['0']*2
-        action_time_feat = ['0']*5
+        action_count_feat = ['0']*9 #每个操作类型计数
+        action_type_count_feat = ['0']*2 #1-4 5-9 分开计数(连续和不连续)
+        action_time_feat = ['0']*5 #操作时间得均值 最大 最小 标准差 操作次数
         if user_id in action_train_dict:
             action_count_feat = [str(action_train_dict[user_id].count(str(i))) for i in range(1, 10)]
             action_type_list = [int(int(typ) in range(5,10)) for typ in action_train_dict[user_id]]
