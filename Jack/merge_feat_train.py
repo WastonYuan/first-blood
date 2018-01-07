@@ -4,8 +4,11 @@ import xgboost as xgb
 
 data1 = np.loadtxt('data/neuro_feat.tsv', delimiter='\t')
 data2 = np.loadtxt('data/train_data.tsv', delimiter='\t')
+data3 = np.loadtxt('data/country_feat.tsv', delimiter='\t')
 
-data = np.array([np.append(data1[i], data2[i][1:]) for i in range(data1.__len__())])
+data = np.array([np.concatenate((data2[i][:], data3[i][1:], data1[i][1:])) for i in range(data1.__len__())])
+data = np.array([np.concatenate((data2[i][:], data3[i][1:])) for i in range(data1.__len__())])
+data = data2
 
 #build param
 train_x = data[:int(data.shape[0]*0.7),1:]
@@ -16,13 +19,11 @@ dtrain = xgb.DMatrix(train_x, label=train_y)
 dtest = xgb.DMatrix(test_x, label=test_y)
 
 #tuning start
-params = {'gamma':2.0,'nthread':8, 'max_depth':15, 'eta':0.02, 'silent':1, 'objective':'binary:logistic', 'eval_metric':'auc'}
+params = {'gamma':2.0,'nthread':8, 'max_depth':5, 'eta':0.1, 'silent':1, 'objective':'binary:logistic', 'eval_metric':'auc'}
 
 watchlist = [(dtrain,'train'), (dtest,'eval')]
 
-
-
-num_round = 300
+num_round = 600
 bst = xgb.train(params, dtrain, num_round, watchlist, early_stopping_rounds=50)
 #tuning end
 # bst.predict(dtrain)
