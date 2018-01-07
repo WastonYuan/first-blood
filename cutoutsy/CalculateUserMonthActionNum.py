@@ -35,7 +35,7 @@ def calculateUserMonthAction(actionfile, savefile):
         monthColumns = monthColumns + ["month" + str(i)]
 
     monthActionDf = pd.DataFrame(np.array(monthActionResult), columns = monthColumns)
-    monthActionDf.to_csv(basedir + "user_month_action.csv", index = False)
+    monthActionDf.to_csv(basedir + savefile, index = False)
 
 calculateUserMonthAction("trainingset/action_train.csv", "user_month__train.csv")
 calculateUserMonthAction("test/action_test.csv", "user_month__test.csv")
