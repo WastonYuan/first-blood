@@ -4,3 +4,5 @@ bigdata/*
 .idea/vcs.xml
 data/*
 xgboost/*
+cutoutsy/.ipynb_checkpoints
+.DS_Store

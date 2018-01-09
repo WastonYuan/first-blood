@@ -20,8 +20,10 @@ def calculateActionRate(actionfile, savefile):
         oneActionRateResult = []
         for i in range(1, 10):
             if userActionType.has_key(i):
+                oneActionRateResult.append(userActionType[i])
                 oneActionRateResult.append(round(userActionType[i] / float(actionTotal), 3))
             else:
+                oneActionRateResult.append(0)
                 oneActionRateResult.append(0.0)
         actionRateResult.append([userid] + oneActionRateResult)
         #print [userid] + oneActionRateResult
@@ -30,7 +32,7 @@ def calculateActionRate(actionfile, savefile):
 
     actionRateColumns = ["userid"]
     for i in range(1, 10):
-        actionRateColumns = actionRateColumns + ["actionType" + str(i)]
+        actionRateColumns = actionRateColumns + ["actionType" + str(i) + "Count"] + ["actionType" + str(i) + "rate"]
 
     actionRateDf = pd.DataFrame(np.array(actionRateResult), columns = actionRateColumns)
     actionRateDf.to_csv(basedir + savefile, index = False)
