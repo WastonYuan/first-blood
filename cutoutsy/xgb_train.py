@@ -186,3 +186,9 @@ xgb1 = XGBClassifier(
         scale_pos_weight=1,
         seed=27)
 modelfit(xgb1, train_data, test_data, predictors)
+
+# 生成提交文件
+prob = xgb1.predict_proba(test_data[predictors])[:,1]
+submit = pd.read_csv(basedir + "orderFuture_test.csv")
+submit['orderType'] = prob
+submit.to_csv(basedir + "submit_c.csv", index = False)
