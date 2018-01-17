@@ -21,12 +21,10 @@ userid : 用户id
 
 label : 订单标签 
 
-age : 用户年龄
-
 city_gdp : 用户所在城市GDP
 
-order_num : 用户历史订单数量
-
+province_rate: 每个省市占总的省市的比例，缺失值使用中位数填充  
+order_num : 用户历史订单数量  
 rating_mean : 历史订单评分均值
 
 rating_max : 历史订单评分最大值
@@ -44,30 +42,6 @@ continent_gdp_max : 历史订单去的所有洲的最大值
 continent_gdp_min : 历史订单去的所有洲的最小值
 
 continent_gdp_std : 历史订单去的所有洲的方差
-
-order_month1 : 用户历史订单在1月份的数量
-
-order_month2 : 用户历史订单在2月份的数量
-
-order_month3 : 用户历史订单在3月份的数量
-
-order_month4 : 用户历史订单在4月份的数量
-
-order_month5 : 用户历史订单在5月份的数量
-
-order_month6 : 用户历史订单在6月份的数量
-
-order_month7 : 用户历史订单在7月份的数量
-
-order_month8 : 用户历史订单在8月份的数量
-
-order_month9 : 用户历史订单在9月份的数量
-
-order_month10 : 用户历史订单在10月份的数量
-
-order_month11 : 用户历史订单在11月份的数量
-
-order_month12 : 用户历史订单在12月份的数量
 
 month1 : 用户在1月份的行为数量
 
@@ -97,17 +71,9 @@ actionType1Count : 用户行为1的数量
 
 actionType1rate : 用户行为1占总行为的比率
 
-actionType2Count : 用户行为2的数量
+actionType24Count : 用户行为2~4的数量
 
-actionType2rate : 用户行为2占总行为的比率
-
-actionType3Count : 用户行为3的数量
-
-actionType3rate : 用户行为3占总行为的比率
-
-actionType4Count : 用户行为4的数量
-
-actionType4rate : 用户行为4占总行为的比率
+actionType24Rate : 用户行为2~4占总行为的比率
 
 actionType5Count : 用户行为5的数量
 
@@ -255,8 +221,20 @@ action8DistanceTime : 用户行为时间序列中距离8的时间间隔
 
 action9DistanceTime : 用户行为时间序列中距离9的时间间隔
 
-gender_女 : 用户是否是女
+tagScore: 用户历史订单tag转换为数值，一个好的标签+1，一个差的标签-2
 
-gender_男 : 用户是否是男
+type1IntervalMin: 用户行为1时间间隔的最小值
 
-gender_nan : 用户是否是其他
+type1IntervalMax: 用户行为1时间间隔的最大值
+
+type1IntervalMean: 用户行为1时间间隔的均值
+
+type1IntervalStd: 用户行为1时间间隔的标准差
+
+type9IntervalMin: 用户行为9时间间隔的最小值
+
+type9IntervalMax: 用户行为9时间间隔的最大值
+
+type9IntervalMean: 用户行为9时间间隔的均值
+
+type9IntervalStd: 用户行为9时间间隔的标准差

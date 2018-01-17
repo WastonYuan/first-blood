@@ -25,6 +25,10 @@ def calculateActionTimeInterval(actionfile, savefile):
         actionTimeList = np.array(userid_action['actionTime'])
         actionTypeList = np.array(userid_action['actionType'])
         timeInterval = np.diff(actionTimeList)
+        # print actionTypeList
+        # print timeInterval
+        # if count == 10:
+        #     break
         if len(timeInterval) < 5:
             timeInterval = [0] * (4 - len(timeInterval)) + list(timeInterval)
             timeInterval = np.array(timeInterval)
@@ -79,11 +83,33 @@ def calculateActionTimeInterval(actionfile, savefile):
 
         actionTimeIntevalResult = actionTimeIntevalResult + disTime
 
-        if len(actionTimeIntevalResult) != 64:
-            print actionTimeIntevalResult
-            print len(actionTimeIntevalResult)
-            break
+        # 统计行为1时间间隔的统计值
+        type1Result = []
+        type1List = np.where(actionTypeList == 1)[-1]
+        if len(type1List) < 2:
+            type1Result = [0, 0, 0, 0]
+        else:
+            type1TimeSeq = np.diff(actionTimeList[type1List])
+            type1Result = [type1TimeSeq.min(), type1TimeSeq.max(), type1TimeSeq.mean(), type1TimeSeq.std()]
+        actionTimeIntevalResult = actionTimeIntevalResult + type1Result
+
+        # 统计行为9时间间隔的统计值
+        type9Result = []
+        type9List = np.where(actionTypeList == 9)[-1]
+        if len(type9List) < 2:
+            type9Result = [0, 0, 0, 0]
+        else:
+            type9TimeSeq = np.diff(actionTimeList[type9List])
+            type9Result = [type9TimeSeq.min(), type9TimeSeq.max(), type9TimeSeq.mean(), type9TimeSeq.std()]
+        actionTimeIntevalResult = actionTimeIntevalResult + type9Result
+
+
+        # if len(actionTimeIntevalResult) != 64:
+        #     print actionTimeIntevalResult
+        #     print len(actionTimeIntevalResult)
+        #     break
         actionTimeIntevalTotalResult.append(actionTimeIntevalResult)
+
 
 
     columns = ["userid", "firstAction", "last3Action", "last2Action", "last1Action", "intevalMean", "intevalStd",
@@ -96,6 +122,9 @@ def calculateActionTimeInterval(actionfile, savefile):
         columns = columns + ["action" + str(i) + "Distance"]
     for i in range(1, 10):
         columns = columns + ["action" + str(i) + "DistanceTime"]
+
+    columns = columns + ['type1IntervalMin', 'type1IntervalMax', 'type1IntervalMean', 'type1IntervalStd']
+    columns = columns + ['type9IntervalMin', 'type9IntervalMax', 'type9IntervalMean', 'type9IntervalStd']
 
     ActionTimeIntervalDf = pd.DataFrame(np.array(actionTimeIntevalTotalResult), columns=columns)
     ActionTimeIntervalDf.to_csv(basedir + savefile, index=False)
