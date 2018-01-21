@@ -6,3 +6,4 @@ data/*
 xgboost/*
 cutoutsy/.ipynb_checkpoints
 .DS_Store
+.notebook.log
