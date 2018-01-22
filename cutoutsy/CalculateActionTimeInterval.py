@@ -44,7 +44,7 @@ def calculateActionTimeInterval(actionfile, savefile):
 
         # 离最近的1-9的时间间隔统计
         IntevalDiff = []
-        for i in range(2, 10):
+        for i in range(1, 10):
             lastIndex = np.where(actionTypeList == i)
             if len(lastIndex[-1]) == 0:
                 action29 = [0, 0, 0, 0]
@@ -93,21 +93,7 @@ def calculateActionTimeInterval(actionfile, savefile):
             type1Result = [type1TimeSeq.min(), type1TimeSeq.max(), type1TimeSeq.mean(), type1TimeSeq.std()]
         actionTimeIntevalResult = actionTimeIntevalResult + type1Result
 
-        # 统计行为9时间间隔的统计值
-        type9Result = []
-        type9List = np.where(actionTypeList == 9)[-1]
-        if len(type9List) < 2:
-            type9Result = [0, 0, 0, 0]
-        else:
-            type9TimeSeq = np.diff(actionTimeList[type9List])
-            type9Result = [type9TimeSeq.min(), type9TimeSeq.max(), type9TimeSeq.mean(), type9TimeSeq.std()]
-        actionTimeIntevalResult = actionTimeIntevalResult + type9Result
 
-
-        # if len(actionTimeIntevalResult) != 64:
-        #     print actionTimeIntevalResult
-        #     print len(actionTimeIntevalResult)
-        #     break
         actionTimeIntevalTotalResult.append(actionTimeIntevalResult)
 
 
@@ -115,7 +101,7 @@ def calculateActionTimeInterval(actionfile, savefile):
     columns = ["userid", "firstAction", "last3Action", "last2Action", "last1Action", "intevalMean", "intevalStd",
                "intevalMin", "firstInteval", "lastInteval4", "lastInteval3", "lastInteval2", "lastInteval1",
                "last3IntevalMean", "last3IntevalStd"]
-    for i in range(2, 10):
+    for i in range(1, 10):
         columns = columns + ["action" + str(i) + "min", "action" + str(i) + "mean", "action" + str(i) + "std",
                              "action" + str(i) + "max"]
     for i in range(2, 10):
@@ -124,7 +110,6 @@ def calculateActionTimeInterval(actionfile, savefile):
         columns = columns + ["action" + str(i) + "DistanceTime"]
 
     columns = columns + ['type1IntervalMin', 'type1IntervalMax', 'type1IntervalMean', 'type1IntervalStd']
-    columns = columns + ['type9IntervalMin', 'type9IntervalMax', 'type9IntervalMean', 'type9IntervalStd']
 
     ActionTimeIntervalDf = pd.DataFrame(np.array(actionTimeIntevalTotalResult), columns=columns)
     ActionTimeIntervalDf.to_csv(basedir + savefile, index=False)

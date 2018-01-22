@@ -61,5 +61,9 @@ def tagConvertNum(userCommentFile, saveFile):
     df = pd.DataFrame(np.array(tagScoreResult), columns=columns)
     df.to_csv(basedir + saveFile, index=False)
 
+def tagOneHot(userCommentFile, saveFile):
+    tags = pd.read_csv(basedir + "tags.csv")['tags']
+    userComment = pd.read_csv(basedir + userCommentFile).loc[:, ['userid', 'tags']]
+
 tagConvertNum("userComment_train.csv", "user_tagScore_train.csv")
 tagConvertNum("userComment_test.csv", "user_tagScore_test.csv")
