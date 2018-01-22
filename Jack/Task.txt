@@ -1,3 +1,0 @@
-1.先读取用户action list信息 保存为 user_id timestamp type timestamp2 type2 ...
-2. 对timestamp划分成100段
-
