@@ -5,5 +5,5 @@ bigdata/*
 data/*
 xgboost/*
 cutoutsy/.ipynb_checkpoints
+cutoutsy/code_bak.py
 .DS_Store
-.notebook.log

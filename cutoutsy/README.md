@@ -15,86 +15,33 @@ python 文件名.py
 计算用户每个月的action总数
 计算完成后会在data目录下写入user_month__train.csv、user_month__test.csv两个文件，数据格式详情见文件内容
 
-特征(120维)：
-
-userid : 用户id
-
-label : 订单标签 
-
-city_gdp : 用户所在城市GDP
-
+特征(100维)：
+userid : 用户id  
+label : 订单标签  
 province_rate: 每个省市占总的省市的比例，缺失值使用中位数填充  
 order_num : 用户历史订单数量  
-rating_mean : 历史订单评分均值
-
-rating_max : 历史订单评分最大值
-
-rating_min : 历史订单评分最小值
-
-rating_std : 历史订单评分方差
-
+rating_mean : 历史订单评分均值  
 orderType_sum : 历史订单为1(精品)的数量
-
-continent_gdp_mean : 历史订单去的洲的GDP均值
-
-continent_gdp_max : 历史订单去的所有洲的最大值
-
-continent_gdp_min : 历史订单去的所有洲的最小值
-
-continent_gdp_std : 历史订单去的所有洲的方差
-
-month1 : 用户在1月份的行为数量
-
-month2 : 用户在2月份的行为数量
-
-month3 : 用户在3月份的行为数量
-
-month4 : 用户在4月份的行为数量
-
-month5 : 用户在5月份的行为数量
-
-month6 : 用户在6月份的行为数量
-
-month7 : 用户在7月份的行为数量
-
-month8 : 用户在8月份的行为数量
-
-month9 : 用户在9月份的行为数量
-
-month10 : 用户在10月份的行为数量
-
-month11 : 用户在11月份的行为数量
-
-month12 : 用户在12月份的行为数量
-
-actionType1Count : 用户行为1的数量
-
-actionType1rate : 用户行为1占总行为的比率
-
-actionType24Count : 用户行为2~4的数量
-
-actionType24Rate : 用户行为2~4占总行为的比率
-
-actionType5Count : 用户行为5的数量
-
-actionType5rate : 用户行为5占总行为的比率
-
-actionType6Count : 用户行为6的数量
-
-actionType6rate : 用户行为6占总行为的比率
-
-actionType7Count : 用户行为7的数量
-
-actionType7rate : 用户行为7占总行为的比率
-
-actionType8Count : 用户行为8的数量
-
-actionType8rate : 用户行为8占总行为的比率
-
-actionType9Count : 用户行为9的数量
-
-actionType9rate : 用户行为9占总行为的比率
-
+continent_gdp_mean : 历史订单去的洲的GDP均值  
+month1 : 用户在1月份的行为数量  
+month2 : 用户在2月份的行为数量  
+month3 : 用户在3月份的行为数量  
+month4 : 用户在4月份的行为数量  
+month5 : 用户在5月份的行为数量  
+month6 : 用户在6月份的行为数量  
+month7 : 用户在7月份的行为数量  
+month8 : 用户在8月份的行为数量  
+month9 : 用户在9月份的行为数量  
+month10 : 用户在10月份的行为数量  
+month11 : 用户在11月份的行为数量  
+month12 : 用户在12月份的行为数量  
+actionType1rate : 用户行为1占总行为的比率  
+actionType24Rate : 用户行为2~4占总行为的比率  
+actionType5rate : 用户行为5占总行为的比率  
+actionType6rate : 用户行为6占总行为的比率  
+actionType7rate : 用户行为7占总行为的比率  
+actionType8rate : 用户行为8占总行为的比率  
+actionType9rate : 用户行为9占总行为的比率  
 firstAction : 用户行为序列中第一个行为
 
 last3Action : 用户行为序列中倒数第3个行为
@@ -230,11 +177,3 @@ type1IntervalMax: 用户行为1时间间隔的最大值
 type1IntervalMean: 用户行为1时间间隔的均值
 
 type1IntervalStd: 用户行为1时间间隔的标准差
-
-type9IntervalMin: 用户行为9时间间隔的最小值
-
-type9IntervalMax: 用户行为9时间间隔的最大值
-
-type9IntervalMean: 用户行为9时间间隔的均值
-
-type9IntervalStd: 用户行为9时间间隔的标准差

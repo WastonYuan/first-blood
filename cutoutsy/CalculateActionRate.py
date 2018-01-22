@@ -20,10 +20,10 @@ def calculateActionRate(actionfile, savefile):
         oneActionRateResult = []
 
         if userActionType.has_key(1):
-            oneActionRateResult.append(userActionType[1])
+            # oneActionRateResult.append(userActionType[1])
             oneActionRateResult.append(round(userActionType[1] / float(actionTotal), 3))
         else:
-            oneActionRateResult.append(0)
+            # oneActionRateResult.append(0)
             oneActionRateResult.append(0.0)
 
         actionType24Count = 0
@@ -32,24 +32,24 @@ def calculateActionRate(actionfile, savefile):
                 actionType24Count = actionType24Count + userActionType[i]
             else:
                 actionType24Count = actionType24Count + 0
-        oneActionRateResult.append(actionType24Count)
+        # oneActionRateResult.append(actionType24Count)
         oneActionRateResult.append(round(actionType24Count / float(actionTotal), 3))
 
         for i in range(5, 10):
             if userActionType.has_key(i):
-                oneActionRateResult.append(userActionType[i])
+                # oneActionRateResult.append(userActionType[i])
                 oneActionRateResult.append(round(userActionType[i] / float(actionTotal), 3))
             else:
-                oneActionRateResult.append(0)
+                # oneActionRateResult.append(0)
                 oneActionRateResult.append(0.0)
         actionRateResult.append([userid] + oneActionRateResult)
         #print [userid] + oneActionRateResult
         count = count + 1
         print count
 
-    actionRateColumns = ["userid", "actionType1Count", "actionType1Rate", "actionType24Count", "actionType24Rate"]
+    actionRateColumns = ["userid", "actionType1Rate", "actionType24Rate"]
     for i in range(5, 10):
-        actionRateColumns = actionRateColumns + ["actionType" + str(i) + "Count"] + ["actionType" + str(i) + "Rate"]
+        actionRateColumns = actionRateColumns + ["actionType" + str(i) + "Rate"]
 
     actionRateDf = pd.DataFrame(np.array(actionRateResult), columns = actionRateColumns)
     # 2~4是浏览产品，无先后关系，统计在一起
